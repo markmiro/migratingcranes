@@ -32,18 +32,12 @@
   <div class="container">
     <h1 class="mt-2">Immigrations to US from</h1>
 
-    <a href="to/us/from/afghanistan">
-      Afghanistan
+    {{#each countries}}
+    <a href="to/us/from/{{this.slug}}">
+      {{this.name}}
     </a>
     <br />
-    <a href="to/us/from/albania">
-      Albania
-    </a>
-    <br />
-    <a href="to/us/from/algeria">
-      Algeria
-    </a>
-    <br />
+    {{/each}}
   </div>
 </body>
 
