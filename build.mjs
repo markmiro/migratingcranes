@@ -3,53 +3,57 @@ import Handlebars from "handlebars";
 import slugify from "slugify";
 import _ from "lodash";
 
-const files = fse.readdirSync("data/us");
-const COUNT = 3; // Number of countries to show on the homepage (for now)
-
-const countries = _.take(files, COUNT).map((file) => {
-  const name = file.replace("_Report_Prototype.html", "").replace(", The", "");
-  const slug = slugify(name, { lower: true, remove: /[',]/g });
-  fse.cpSync(`data/us/${file}`, `dist/to/us/from/${slug}.html`);
-  return { name, slug };
-});
-
-// Compile the google-analytics.hbs partial
-{
-  const source = fse.readFileSync("src/partials/google-analytics.hbs", "utf8");
-  const template = Handlebars.compile(source);
-  Handlebars.registerPartial("google-analytics", template);
+function compileHbs(filePath) {
+  const source = fse.readFileSync(filePath, "utf8");
+  const res = Handlebars.compile(source);
+  return res;
 }
 
-// Compile the layout.hbs partial
-{
-  const source = fse.readFileSync("src/partials/layout.hbs", "utf8");
-  const template = Handlebars.compile(source);
-  Handlebars.registerPartial("layout", template);
+function compilePartials() {
+  const files = fse.readdirSync("src/partials");
+  files.forEach((file) => {
+    const template = compileHbs(`src/partials/${file}`);
+    const name = file.replace(".hbs", "");
+    Handlebars.registerPartial(name, template);
+  });
 }
 
-// Compile the index.hbs template
-{
-  const source = fse.readFileSync("src/index.hbs", "utf8");
-  const template = Handlebars.compile(source);
-  const res = template({ title: "Home" });
-  fse.writeFileSync("dist/index.html", res);
+function buildPage(filePath, { title }) {
+  const template = compileHbs(filePath);
+  const res = template({ title });
+  const name = filePath.replace("src/", "").replace(".hbs", ".html");
+  fse.writeFileSync(`dist/${name}`, res);
 }
 
-// Compile the about.hbs template
-{
-  const source = fse.readFileSync("src/about.hbs", "utf8");
-  const template = Handlebars.compile(source);
-  const res = template({ title: "About" });
-  fse.writeFileSync("dist/about.html", res);
-}
+function buildUsReports() {
+  const files = fse.readdirSync("data/us");
+  const COUNT = 3; // Number of countries to show on the homepage (for now)
 
-// Compile the us reports template
-{
-  const source = fse.readFileSync("src/to-us.hbs", "utf8");
-  const template = Handlebars.compile(source);
+  const countries = _.take(files, COUNT).map((file) => {
+    const name = file
+      .replace("_Report_Prototype.html", "")
+      .replace(", The", "");
+    const slug = slugify(name, { lower: true, remove: /[',]/g });
+    return { file, name, slug };
+  });
+
+  // Copy the reports
+  countries.forEach(({ file, name, slug }) => {
+    fse.cpSync(`data/us/${file}`, `dist/to/us/from/${slug}.html`);
+  });
+
+  // Compile the us reports template
+  const template = compileHbs("src/to-us.hbs");
   const res = template({ title: "to US", countries });
   fse.writeFileSync("dist/to/us/index.html", res);
 }
+
+// Clean the dist folder
+fse.emptyDirSync("dist");
+compilePartials();
+buildPage("src/index.hbs", { title: "Home" });
+buildPage("src/about.hbs", { title: "About" });
+buildUsReports();
 
 // Copy the rest of the files
 fse.cpSync("src/favicon.ico", "dist/favicon.ico");
