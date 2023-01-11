@@ -1,0 +1,9 @@
+{{#>layout}}
+<div class="container">
+  <h1 class="mt-2">Immigration to United States from:</h1>
+  {{#each countries}}
+  <a href="/to/us/from/{{this.slug}}">{{this.name}}</a>
+  <br />
+  {{/each}}
+</div>
+{{/layout}}

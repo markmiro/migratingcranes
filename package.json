@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "node build.mjs",
-    "start": "serve public"
+    "start": "serve dist"
   },
   "dependencies": {
     "cp": "0.2.0",
