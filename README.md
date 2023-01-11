@@ -1,5 +1,7 @@
 # README
 
+This is the site
+
 Hosted on: https://migratingcranes.com
 
 Favicon from:
