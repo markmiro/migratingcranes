@@ -27,7 +27,7 @@ function buildPage(filePath, { title }) {
 
 function buildUsReports() {
   const files = fse.readdirSync("data/us");
-  const COUNT = 3; // Number of countries to show on the homepage (for now)
+  const COUNT = files.length; // Number of countries to show on the homepage (for now)
 
   const countries = _.take(files, COUNT).map((file) => {
     const name = file

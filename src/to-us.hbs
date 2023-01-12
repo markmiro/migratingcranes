@@ -1,9 +1,10 @@
 {{#>layout}}
 <div class="container">
   <h1 class="mt-2">Immigration to United States from:</h1>
+  <div class="list-group">
   {{#each countries}}
-  <a href="/to/us/from/{{this.slug}}">{{this.name}}</a>
-  <br />
+  <a href="/to/us/from/{{this.slug}}" class="list-group-item">{{this.name}}</a>
   {{/each}}
+  </div>
 </div>
 {{/layout}}
