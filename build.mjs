@@ -39,7 +39,34 @@ function buildUsReports() {
 
   // Copy the reports
   countries.forEach(({ file, name, slug }) => {
-    fse.cpSync(`data/us/${file}`, `dist/to/us/from/${slug}.html`);
+    const source = fse.readFileSync(`data/us/${file}`, "utf8");
+    const lines = source.split("\n");
+    // Grab middle part of the report
+    const outLines = lines
+      .slice(360, -45)
+      .join("\n")
+      .replace(/class=".*"/g, ""); // remove classes
+    const template = Handlebars.compile(`
+      {{#>layout}}
+      <div class="mc-report">
+        <div class="container">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/to/us">To US</a></li>
+              <li class="breadcrumb-item active" aria-current="page">From ${name}</li>
+            </ol>
+          </nav>
+          ${outLines}
+        </div>
+      </div>
+      {{/layout}}
+    `);
+    const res = template({ title: name });
+    fse.ensureDirSync("dist/to/us/from");
+    fse.writeFileSync(`dist/to/us/from/${slug}.html`, res);
+
+    // fse.cpSync(`data/us/${file}`, `dist/to/us/from/${slug}.html`);
   });
 
   // Compile the us reports template
@@ -57,3 +84,4 @@ buildUsReports();
 
 // Copy the rest of the files
 fse.cpSync("src/favicon.ico", "dist/favicon.ico");
+fse.cpSync("src/styles.css", "dist/styles.css");

@@ -1,0 +1,57 @@
+.mc-measure {
+  max-width: 80ch;
+}
+
+.mc-report p {
+  max-width: 800px;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+.mc-report table {
+  max-width: max-content;
+  border: 1px solid #bbb;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.mc-report th {
+  border-bottom: 1px solid;
+  font-size: 80%;
+}
+
+.mc-report td,
+th {
+  padding: .1rem .5rem;
+}
+
+.mc-report tr:not(:last-child) {
+  border-bottom: 1px solid #bbb;
+}
+
+.mc-report tr:nth-child(2n) {
+  background: #f9f9f9;
+}
+
+.mc-report h1 {
+  font-weight: bold;
+}
+
+.mc-report h2 {
+  border-bottom: 1px solid;
+}
+
+.mc-report h3 {
+  opacity: 0.6;
+}
+
+.mc-report h4 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.mc-report :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: .75em;
+  margin-bottom: .75em;
+}

@@ -11,10 +11,11 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <title>Migrating Cranes | {{title}}</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-  {{> google-analytics}}
+  {{>google-analytics}}
 
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
@@ -31,7 +32,14 @@
       </div>
     </div>
   </nav>
-  {{> @partial-block }}
+  <div class="mt-4"></div>
+  {{>@partial-block }}
+  <div class="mt-5"></div>
+  <footer class="border-top text-secondary text-center p-2 ">
+    <small>
+      🪶 Migrating Cranes
+    </small>
+  </footer>
 </body>
 
 </html>
