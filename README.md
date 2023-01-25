@@ -37,3 +37,7 @@ npm run start
 - Gitlab
 - Cloudflare
 - R (for generating reports)
+
+# Misc
+
+I (markmiro) personally use `fnm` which uses the .node-version file to pick the right version of node. Also, file formatting is done using prettier.
