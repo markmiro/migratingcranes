@@ -85,3 +85,4 @@ buildUsReports();
 // Copy the rest of the files
 fse.cpSync("src/favicon.ico", "dist/favicon.ico");
 fse.cpSync("src/styles.css", "dist/styles.css");
+fse.cpSync("src/robots.txt", "dist/robots.txt");
