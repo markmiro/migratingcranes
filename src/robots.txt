@@ -1,0 +1,2 @@
+# migratingcranes
+# This file is added to fix error in Google Lighthouse report getting an HTML page and trying to parse it
