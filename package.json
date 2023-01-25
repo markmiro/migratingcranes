@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "scripts": {
     "build": "node build.mjs",
-    "start": "serve dist"
+    "start": "serve dist",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "cp": "0.2.0",
     "fs-extra": "11.1.0",
     "handlebars": "4.7.7",
     "lodash": "4.17.21",
-    "serve": "14.1.2",
+    "serve": "14.2.0",
     "slugify": "1.6.5"
+  },
+  "devDependencies": {
+    "prettier": "2.8.3"
   }
 }
