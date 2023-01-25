@@ -18,9 +18,9 @@ function compilePartials() {
   });
 }
 
-function buildPage(filePath, { title }) {
+function buildPage(filePath, { title, metaDescription }) {
   const template = compileHbs(filePath);
-  const res = template({ title });
+  const res = template({ title, metaDescription });
   const name = filePath.replace("src/", "").replace(".hbs", ".html");
   fse.writeFileSync(`dist/${name}`, res);
 }
@@ -62,7 +62,10 @@ function buildUsReports() {
       </div>
       {{/layout}}
     `);
-    const res = template({ title: name });
+    const res = template({
+      title: name,
+      // metaDescription: `Immigration to United States from ${name}`,
+    });
     fse.ensureDirSync("dist/to/us/from");
     fse.writeFileSync(`dist/to/us/from/${slug}.html`, res);
 
@@ -71,15 +74,26 @@ function buildUsReports() {
 
   // Compile the us reports template
   const template = compileHbs("src/to-us.hbs");
-  const res = template({ title: "to US", countries });
+  const res = template({
+    title: "to US",
+    countries,
+    metaDescription:
+      "Index page for immigration to United States from various countries.",
+  });
   fse.writeFileSync("dist/to/us/index.html", res);
 }
 
 // Clean the dist folder
 fse.emptyDirSync("dist");
 compilePartials();
-buildPage("src/index.hbs", { title: "Home" });
-buildPage("src/about.hbs", { title: "About" });
+buildPage("src/index.hbs", {
+  title: "Home",
+  metaDescription: "",
+});
+buildPage("src/about.hbs", {
+  title: "About",
+  metaDescription: "",
+});
 buildUsReports();
 
 // Copy the rest of the files
