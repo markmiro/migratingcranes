@@ -23,7 +23,7 @@
 
 .mc-report td,
 th {
-  padding: .1rem .5rem;
+  padding: 0.1rem 0.5rem;
 }
 
 .mc-report tr:not(:last-child) {
@@ -40,10 +40,14 @@ th {
 
 .mc-report h2 {
   border-bottom: 1px solid;
+  font-family: serif;
+  font-style: italic;
+  font-weight: bold;
 }
 
 .mc-report h3 {
-  opacity: 0.6;
+  font-size: 1.5rem;
+  /* font-style: italic; */
 }
 
 .mc-report h4 {
@@ -52,6 +56,6 @@ th {
 }
 
 .mc-report :is(h1, h2, h3, h4, h5, h6) {
-  margin-top: .75em;
-  margin-bottom: .75em;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
 }
