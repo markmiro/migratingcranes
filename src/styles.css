@@ -1,5 +1,38 @@
-/* Show horizontal scrollbar in tables when needed so users know there's content there */
+:root {
+  --blue: #0064d7;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.15;
+}
+
+small {
+  color: #555;
+}
+small a {
+  color: black;
+}
+
+a {
+  color: var(--blue);
+}
+
+/* Show horizontal scrollbar in tables when needed so users know there's content there */
 table::-webkit-scrollbar {
   -webkit-appearance: none;
   height: 7px;
@@ -11,8 +44,123 @@ table::-webkit-scrollbar-thumb {
   padding: 2px;
 }
 
+hr {
+  margin: 1em 0;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  width: 100%; /* for when in flexbox so width doesn't shrink to zero */
+}
+
+/* --- */
+/* "mc" prefix is added to styles to prevent conflicts in the future */
+/* --- */
+
+/* Use immediately inside body tag */
+.mc-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.mc-nav a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+.mc-nav-home:hover {
+  text-decoration: underline;
+}
+
+.mc-img-page {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  flex-wrap: wrap-reverse;
+}
+.mc-img-page-img {
+  background: #eee;
+  background-image: url(immigration-photo.webp);
+  background-size: cover;
+  background-position: center;
+  flex: 1 0 35vmax;
+  min-height: 20vh;
+  border-radius: 20px;
+}
+.mc-img-page-content {
+  width: 50ch;
+  display: grid;
+  place-items: center;
+  flex: 1 1 40ch;
+  padding: 2em;
+}
+@media (max-width: 500px) {
+  .mc-img-page-content {
+    padding: 0;
+  }
+}
+
+.mc-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.mc-card-head {
+  padding: .5em 1em;
+  font-weight: bold;
+  /* background: #f5f5f5; */
+}
+.mc-card-item {
+  border-top: 1px solid #ddd;
+  padding: 1em;
+  display: block;
+  position: relative;
+}
+a.mc-card-item {
+  text-decoration: none;
+  padding-right: 2.5em;
+}
+a.mc-card-item:hover::after {
+  content: '→';
+  position: absolute;
+  right: 1em;
+}
+a.mc-card-item:hover {
+  background: #f5f5f5;
+}
+
+/* breadcrumbs */
+.mc-breadcrumb {
+  list-style: none;
+  padding-left: 0;
+}
+.mc-breadcrumb-item::before {
+  content: '/ '
+}
+.mc-breadcrumb-item {
+  display: inline;
+}
+
+.mc-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1024px;
+  flex: 1 1 auto;
+}
+
 .mc-measure {
   max-width: 80ch;
+}
+.mc-measure-sm {
+  max-width: 60ch;
+}
+.mc-measure-xs {
+  max-width: 40ch;
+}
+
+.mc-report {
+  margin-bottom: 4em;
 }
 
 .mc-report p {
@@ -23,52 +171,111 @@ table::-webkit-scrollbar-thumb {
 
 .mc-report table {
   max-width: max-content;
-  border: 1px solid #bbb;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* to match scrollbar radius */
+  border-collapse: collapse;
   display: block;
   overflow-x: auto;
   white-space: nowrap;
 }
 
 .mc-report th {
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
   font-size: 80%;
 }
 
-.mc-report td,
-th {
-  padding: 0.1rem 0.5rem;
+.mc-report td, th {
+  padding: 0.25rem 0.75rem;
 }
 
-.mc-report tr:not(:last-child) {
-  border-bottom: 1px solid #bbb;
-}
-
-.mc-report tr:nth-child(2n) {
-  background: #f9f9f9;
+.mc-report tbody tr:nth-child(2n + 1) {
+  background: #f5f5f5;
 }
 
 .mc-report h1 {
   font-weight: bold;
 }
 
-.mc-report h2 {
+h2 {
   border-bottom: 1px solid;
   font-family: serif;
   font-style: italic;
   font-weight: bold;
 }
 
-.mc-report h3 {
-  font-size: 1.5rem;
-  /* font-style: italic; */
-}
-
 .mc-report h4 {
-  font-size: 1rem;
+  font-style: italic;
   font-weight: bold;
 }
 
 .mc-report :is(h1, h2, h3, h4, h5, h6) {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
+}
+
+.mc-footer {
+  text-align: center;
+}
+
+.mc-col-text {
+  column-count: 1;
+  column-gap: 1em;
+}
+@media screen and (min-width: 600px) {
+  .mc-col-text {
+    column-count: 2;
+  }
+}
+@media screen and (min-width: 900px) {
+  .mc-col-text {
+    column-count: 3;
+  }
+}
+ul.mc-col-text {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul.mc-col-text li {
+  display: block;
+}
+ul.mc-col-text a {
+  display: block;
+  padding: 0.5em 2.5em 0.5em 1em;
+  border-bottom: 1px solid #ddd;
+  text-decoration: none;
+  position: relative;
+}
+ul.mc-col-text a:hover::after {
+  content: '→';
+  position: absolute;
+  right: 1em;
+}
+ul.mc-col-text a:hover {
+  background: #f5f5f5;
+}
+
+.mc-img-page-img {
+  position: relative;
+  overflow: hidden;
+}
+.mc-img-page-img .mc-img-credit {
+  display: none;
+}
+.mc-img-page-img:hover .mc-img-credit {
+  display: block;
+}
+.mc-img-credit {
+  position: absolute;
+  background: #00000077;
+  backdrop-filter: blur(10px);
+  font-size: small;
+  bottom: 0;
+  padding: 0.5em 1em;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+.mc-img-credit a {
+  color: white;
 }

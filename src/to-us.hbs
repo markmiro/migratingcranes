@@ -1,10 +1,7 @@
 {{#>layout}}
-<div class="container">
-  <h1 class="mt-2">Immigration to United States from:</h1>
-  <div class="list-group">
-  {{#each countries}}
-  <a href="/to/us/from/{{this.slug}}" class="list-group-item">{{this.name}}</a>
-  {{/each}}
-  </div>
+<div class="mc-container">
+  <h1>Immigration to United States from:</h1>
+  {{{countries}}}
+  <div style="margin-top: 4em"></div>
 </div>
 {{/layout}}
