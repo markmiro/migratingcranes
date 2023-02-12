@@ -55,7 +55,7 @@ function copyReports(countries) {
       {{/layout}}
     `);
     const res = template({
-      title: name,
+      title: name + " to US Immigration Fact Sheet",
       // metaDescription: `Immigration to United States from ${name}`,
     });
     fse.ensureDirSync("dist/to/us/from");
